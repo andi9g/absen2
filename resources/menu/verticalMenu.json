@@ -1,0 +1,73 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Analytics",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "dashboard",
+      "badge": [
+        "danger",
+        "5"
+      ]
+    },
+    {
+      "menuHeader": "REGISTRASI"
+    },
+    {
+      "name": "Kartu Pelajar",
+      "icon": "menu-icon tf-icons mdi mdi-id-card",
+      "slug": "kartupelajar",
+      "submenu": [
+        {
+          "url": "/registrasikartu",
+          "name": "Registrasi Kartu",
+          "slug": "registrasikartu"
+        },
+        {
+          "url": "/carikartu",
+          "name": "Cari Kartu",
+          "slug": "carikartu"
+        }
+      ]
+    },
+    {
+      "menuHeader": "Perangkat"
+    },
+    {
+      "url": "/perangkat",
+      "name": "perangkat",
+      "icon": "menu-icon tf-icons mdi mdi-toolbox-outline",
+      "slug": "perangkat"
+    },
+    {
+      "menuHeader": "Kelola Sekolah"
+    },
+    {
+      "name": "Data Sekolah",
+      "icon": "menu-icon tf-icons mdi mdi-school-outline",
+      "slug": "pengaturan",
+      "submenu": [
+        {
+          "url": "/jurusan",
+          "name": "Jurusan/Ruang",
+          "slug": "jurusan"
+        },
+        {
+          "url": "/kelas",
+          "name": "Kelas",
+          "slug": "kelas"
+        },
+        {
+          "url": "/instansi",
+          "name": "instansi",
+          "slug": "instansi"
+        },
+        {
+          "url": "/jamoperasional",
+          "name": "Jam Absensi",
+          "slug": "jamoperasional"
+        }
+      ]
+    }
+  ]
+}
