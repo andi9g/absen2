@@ -34,7 +34,8 @@ class absenC extends Controller
 
     $keterangan = keteranganM::get();
 
-    $absen = absenM::join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
+    $absen = absenM::from("smkngunu_absensi.absen as absen")
+      ->join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
       ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
       ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
       ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
