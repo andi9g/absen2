@@ -156,7 +156,7 @@
                                         <td>{{ $loop->iteration + $siswa->firstItem() - 1 }}</td>
                                         <td>{{ sprintf('%010s', $item->nisn) }}</td>
                                         {{-- <td width="5px" align="center">{{ $loop->iteration }}</td> --}}
-                                        <td>{{ $item->detailsiswa->nama ?? '' }}</td>
+                                        <td>{{ $item->detailsiswa->nama ?? $item->siswa->namasiswa }}</td>
                                         <td>{{ $item->kelas->namakelas . ' ' . $item->jurusan->jurusan }}</td>
                                         <td width="5px">
                                             <center>
@@ -201,7 +201,7 @@
                                         function confirmDelete{{ sprintf('%010s', $item->nisn) }}() {
                                             Swal.fire({
                                                 title: 'Yakin ingin menghapus?',
-                                                html: 'Kartu pelajar <b>{{ $item->detailsiswa->nama ?? '' }}</b> akan dihapus',
+                                                html: 'Kartu pelajar <b>{{ $item->siswa->namasiswa ?? '' }}</b> akan dihapus',
                                                 icon: 'warning',
                                                 showCancelButton: true,
                                                 confirmButtonColor: '#3085d6',
