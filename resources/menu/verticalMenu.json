@@ -1,14 +1,23 @@
 {
   "menu": [
     {
+      "menuHeader": "MENU UTAMA"
+    },
+    {
       "url": "/",
-      "name": "Analytics",
+      "name": "Home",
       "icon": "menu-icon tf-icons mdi mdi-home-outline",
       "slug": "dashboard",
       "badge": [
         "danger",
         "5"
       ]
+    },
+    {
+      "url": "absen",
+      "name": "Absen Siswa",
+      "icon": "menu-icon tf-icons text-primary mdi mdi-server",
+      "slug": "absen"
     },
     {
       "menuHeader": "REGISTRASI"

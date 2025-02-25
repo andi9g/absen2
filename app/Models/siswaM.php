@@ -10,7 +10,7 @@ class siswaM extends Model
   use HasFactory;
 
   protected $table = 'siswa';
-  protected $primaryKey = 'idsiswa';
+  protected $primaryKey = 'nisn';
   protected $connection = 'mysql2';
   protected $guarded = [];
 
@@ -22,6 +22,10 @@ class siswaM extends Model
   public function jurusan()
   {
     return $this->belongsTo(jurusanM::class, 'idjurusan', 'idjurusan');
+  }
+  public function absen()
+  {
+    return $this->belongsTo(absenM::class, 'nisn', 'nisn');
   }
 
   public function detailsiswa()

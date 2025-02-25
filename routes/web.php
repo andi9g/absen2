@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\absenC;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -54,6 +55,11 @@ use App\Http\Middleware\givedata;
 Route::get('/login', [LoginBasic::class, 'index'])->name('login');
 
 Route::middleware(['auth', givedata::class])->group(function () {
+  //show absen
+  Route::get("absen", [absenC::class, "index"])->name("absen");
+  Route::post("absen", [absenC::class, "store"])->name("absen.store");
+
+
   Route::get('/', [Analytics::class, 'index'])->name('dashboard');
   Route::post('/logout', [LoginBasic::class, 'logout'])->name('logout');
 
