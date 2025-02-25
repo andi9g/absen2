@@ -156,7 +156,7 @@
                                         <td>{{ $loop->iteration + $siswa->firstItem() - 1 }}</td>
                                         <td>{{ sprintf('%010s', $item->nisn) }}</td>
                                         {{-- <td width="5px" align="center">{{ $loop->iteration }}</td> --}}
-                                        <td>{{ $item->detailsiswa->nama ?? $item->siswa->namasiswa }}</td>
+                                        <td>{{ $item->detailsiswa->nama ?? '' }}</td>
                                         <td>{{ $item->kelas->namakelas . ' ' . $item->jurusan->jurusan }}</td>
                                         <td width="5px">
                                             <center>
