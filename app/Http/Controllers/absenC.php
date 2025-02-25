@@ -35,18 +35,18 @@ class absenC extends Controller
     $keterangan = keteranganM::get();
 
     $absen = absenM::whereHas("siswa", function ($query) use ($keyword, $idinstansi, $kelas, $jurusan) {
-      $query->from("siswa.siswa")
+      $query->from("smkngunu_siswa.siswa")
         ->where("idinstansi", $idinstansi)
         ->whereHas("detailsiswa", function ($query2) use ($keyword) {
           $query2->from("siswa.detailsiswa")
             ->when($keyword, fn($q) => $q->where('nama', 'like', "%$keyword%"));
         })
         ->whereHas("kelas", function ($query2) use ($kelas) {
-          $query2->from("siswa.kelas")
+          $query2->from("smkngunu_siswa..kelas")
             ->when($kelas, fn($q) => $q->where('namakelas', $kelas));
         })
         ->whereHas("jurusan", function ($query2) use ($jurusan) {
-          $query2->from("siswa.jurusan")
+          $query2->from("smkngunu_siswa..jurusan")
             ->when($jurusan, fn($q) => $q->where('jurusan', $jurusan));
         });
     })->where('tanggal', $tanggal)
