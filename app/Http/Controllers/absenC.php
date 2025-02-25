@@ -10,6 +10,7 @@ use App\Models\kelolawaktuM;
 use App\Models\keteranganM;
 use App\Models\siswaM;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class absenC extends Controller
 {
@@ -34,23 +35,24 @@ class absenC extends Controller
 
     $keterangan = keteranganM::get();
 
-    // $absen = absenM::has('siswa') // Hanya ambil jika relasi 'siswa' ada
-    //   ->where('tanggal', $tanggal)
-    //   ->paginate(15);
-    // dd($absen);
+    $absen = absenM::whereHas("siswa", function ($query) {
+      $query->from("siswa.siswa");
+    })
+      ->get();
+    dd($absen);
 
-    $absen = absenM::from("smkngunu_absensi.absen as absen")
-      ->join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
-      ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
-      ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
-      ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
-      ->where('s.idinstansi', $idinstansi)
-      ->when($keyword, fn($q) => $q->where('ds.nama', 'like', "%$keyword%"))
-      ->when($kelas, fn($q) => $q->where('k.namakelas', $kelas))
-      ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
-      ->where('absen.tanggal', $tanggal)
-      ->select('absen.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
-      ->paginate(1);
+    // $absen = absenM::from("smkngunu_absensi.absen as absen")
+    //   ->join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
+    //   ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
+    //   ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
+    //   ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
+    //   ->where('s.idinstansi', $idinstansi)
+    //   ->when($keyword, fn($q) => $q->where('ds.nama', 'like', "%$keyword%"))
+    //   ->when($kelas, fn($q) => $q->where('k.namakelas', $kelas))
+    //   ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
+    //   ->where('absen.tanggal', $tanggal)
+    //   ->select('absen.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
+    //   ->paginate(1);
 
     $absen->appends($request->only(["limit", "keyword", "jurusan", "kelas", "tanggal"]));
 
