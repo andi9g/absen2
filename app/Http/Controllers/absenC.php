@@ -45,7 +45,7 @@ class absenC extends Controller
       ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
       ->where('a.tanggal', $tanggal)
       ->select('a.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
-      ->paginate(1);
+      ->paginate(15);
 
     $absen->appends($request->only(["limit", "keyword", "jurusan", "kelas", "tanggal"]));
 
