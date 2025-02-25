@@ -34,7 +34,7 @@ class absenC extends Controller
 
     $keterangan = keteranganM::get();
 
-    $absen = absenM::join('smkngunu_siswa.siswa as s', 'smkngunu_absensi.nisn', '=', 's.nisn')
+    $absen = absenM::join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
       ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
       ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
       ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
@@ -42,8 +42,8 @@ class absenC extends Controller
       ->when($keyword, fn($q) => $q->where('ds.nama', 'like', "%$keyword%"))
       ->when($kelas, fn($q) => $q->where('k.namakelas', $kelas))
       ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
-      ->where('smkngunu_absensi.tanggal', $tanggal)
-      ->select('smkngunu_absensi.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
+      ->where('absen.tanggal', $tanggal)
+      ->select('absen.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
       ->paginate(1);
 
     $absen->appends($request->only(["limit", "keyword", "jurusan", "kelas", "tanggal"]));
