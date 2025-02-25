@@ -34,18 +34,37 @@ class absenC extends Controller
 
     $keterangan = keteranganM::get();
 
-    $absen = absenM::from("smkngunu_absensi.absen as absen")
-      ->join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
-      ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
-      ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
-      ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
-      ->where('s.idinstansi', $idinstansi)
-      ->when($keyword, fn($q) => $q->where('ds.nama', 'like', "%$keyword%"))
-      ->when($kelas, fn($q) => $q->where('k.namakelas', $kelas))
-      ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
-      ->where('absen.tanggal', $tanggal)
-      ->select('absen.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
-      ->paginate(1);
+    $absen = absenM::whereHas("siswa", function ($query) use ($keyword, $idinstansi, $kelas, $jurusan) {
+      $query->from("siswa.siswa")
+        ->where("idinstansi", $idinstansi)
+        ->whereHas("detailsiswa", function ($query2) use ($keyword) {
+          $query2->from("siswa.detailsiswa")
+            ->when($keyword, fn($q) => $q->where('nama', 'like', "%$keyword%"));
+        })
+        ->whereHas("kelas", function ($query2) use ($kelas) {
+          $query2->from("siswa.kelas")
+            ->when($kelas, fn($q) => $q->where('namakelas', $kelas));
+        })
+        ->whereHas("jurusan", function ($query2) use ($jurusan) {
+          $query2->from("siswa.jurusan")
+            ->when($jurusan, fn($q) => $q->where('jurusan', $jurusan));
+        });
+    })->where('tanggal', $tanggal)
+      ->paginate(15);
+    // dd($absen);
+
+    // $absen = absenM::from("smkngunu_absensi.absen as absen")
+    //   ->join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
+    //   ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
+    //   ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
+    //   ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
+    //   ->where('s.idinstansi', $idinstansi)
+    //   ->when($keyword, fn($q) => $q->where('ds.nama', 'like', "%$keyword%"))
+    //   ->when($kelas, fn($q) => $q->where('k.namakelas', $kelas))
+    //   ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
+    //   ->where('absen.tanggal', $tanggal)
+    //   ->select('absen.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
+    //   ->paginate(1);
 
     $absen->appends($request->only(["limit", "keyword", "jurusan", "kelas", "tanggal"]));
 
