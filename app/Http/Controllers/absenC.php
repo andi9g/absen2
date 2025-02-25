@@ -34,36 +34,38 @@ class absenC extends Controller
 
     $keterangan = keteranganM::get();
 
-    $absen = absenM::with(['siswa.detailsiswa', 'siswa.kelas', 'siswa.jurusan'])
-      ->whereHas('siswa', function ($query) use ($idinstansi, $keyword, $kelas, $jurusan) {
-        $query->where('idinstansi', $idinstansi)
-          ->when($keyword, fn($q) => $q->whereHas('detailSiswa', fn($ds) => $ds->where('nama', 'like', "%$keyword%")))
-          ->when($kelas, fn($q) => $q->whereHas('kelas', fn($k) => $k->where('namakelas', $kelas)))
-          ->when($jurusan, fn($q) => $q->whereHas('jurusan', fn($j) => $j->where('jurusan', $jurusan)));
-      })
-      ->where('tanggal', $tanggal)
-      ->paginate(15);
+    $absen = absenM::join('smkngunu_siswa.siswa as s', 'absen.nisn', '=', 's.nisn')
+      ->leftJoin('smkngunu_siswa.detailsiswa as ds', 's.nisn', '=', 'ds.nisn')
+      ->leftJoin('smkngunu_siswa.kelas as k', 's.idkelas', '=', 'k.idkelas')
+      ->leftJoin('smkngunu_siswa.jurusan as j', 's.idjurusan', '=', 'j.idjurusan')
+      ->where('s.idinstansi', $idinstansi)
+      ->when($keyword, fn($q) => $q->where('ds.nama', 'like', "%$keyword%"))
+      ->when($kelas, fn($q) => $q->where('k.namakelas', $kelas))
+      ->when($jurusan, fn($q) => $q->where('j.jurusan', $jurusan))
+      ->where('absen.tanggal', $tanggal)
+      ->select('absen.*', 'ds.nama', 'k.namakelas', 'j.jurusan')
+      ->paginate(1);
 
     $absen->appends($request->only(["limit", "keyword", "jurusan", "kelas", "tanggal"]));
 
 
-    $hadir = absenM::from("smkngunu_absensi.absen as ad")
-      ->join("smkngunu_siswa as s", "s.nisn", "ad.nisn")
+    $hadir = absenM::from("absensi-digital.absen as ad")
+      ->join("siswa.siswa as s", "s.nisn", "ad.nisn")
       ->where("ad.ket", "H")
       ->where("s.idinstansi", $idinstansi)
       ->where("ad.tanggal", $tanggal)->count();
-    $izin = absenM::from("smkngunu_absensi.absen as ad")
-      ->join("smkngunu_siswa as s", "s.nisn", "ad.nisn")
+    $izin = absenM::from("absensi-digital.absen as ad")
+      ->join("siswa.siswa as s", "s.nisn", "ad.nisn")
       ->where("ad.ket", "I")
       ->where("s.idinstansi", $idinstansi)
       ->where("ad.tanggal", $tanggal)->count();
-    $sakit = absenM::from("smkngunu_absensi.absen as ad")
-      ->join("smkngunu_siswa as s", "s.nisn", "ad.nisn")
+    $sakit = absenM::from("absensi-digital.absen as ad")
+      ->join("siswa.siswa as s", "s.nisn", "ad.nisn")
       ->where("ad.ket", "S")
       ->where("s.idinstansi", $idinstansi)
       ->where("ad.tanggal", $tanggal)->count();
-    $alpa = absenM::from("smkngunu_absensi.absen as ad")
-      ->join("smkngunu_siswa as s", "s.nisn", "ad.nisn")
+    $alpa = absenM::from("absensi-digital.absen as ad")
+      ->join("siswa.siswa as s", "s.nisn", "ad.nisn")
       ->where("ad.ket", "A")
       ->where("s.idinstansi", $idinstansi)
       ->where("ad.tanggal", $tanggal)->count();
