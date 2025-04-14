@@ -59,8 +59,7 @@ class kartupelajarC extends Controller
       ->select("kodealat")
       ->get();
 
-    $siswa = siswaM::with("kartupelajar")
-      ->where("idinstansi", $request->idinstansi)
+    $siswa = siswaM::where("idinstansi", $request->idinstansi)
       ->whereHas("kelas", function ($query) {
         $query->whereNotIn("namakelas", ["LULUS"]);
       })
@@ -71,6 +70,7 @@ class kartupelajarC extends Controller
           ->orderBy("nama", "asc");
       })
       ->paginate(15);
+
 
     $siswa->appends($request->only(["limit", "keyword", "kodealat"]));
 

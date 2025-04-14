@@ -1,13 +1,30 @@
 {
   "menu": [
     {
-      "menuHeader": "MENU UTAMA"
+      "menuHeader": "MENU UTAMA SUPERADMIN",
+      "posisi": "superadmin"
     },
     {
-      "url": "/",
+      "url": "/dashboard",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "dashboard"
+    },
+    {
+      "url": "/akun",
+      "name": "Akun Instansi",
+      "icon": "menu-icon tf-icons text-primary mdi mdi-server",
+      "slug": "akun"
+    },
+    {
+      "menuHeader": "MENU UTAMA",
+      "posisi": "admin"
+    },
+    {
+      "url": "/home",
       "name": "Home",
       "icon": "menu-icon tf-icons mdi mdi-home-outline",
-      "slug": "dashboard",
+      "slug": "home",
       "badge": [
         "danger",
         "5"
@@ -20,7 +37,8 @@
       "slug": "absen"
     },
     {
-      "menuHeader": "REGISTRASI"
+      "menuHeader": "REGISTRASI",
+      "posisi": "admin"
     },
     {
       "name": "Kartu Pelajar",
@@ -40,7 +58,8 @@
       ]
     },
     {
-      "menuHeader": "Perangkat"
+      "menuHeader": "Perangkat",
+      "posisi": "admin"
     },
     {
       "url": "/perangkat",

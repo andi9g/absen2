@@ -30,7 +30,7 @@
       series: [
         {
           name: 'Sales',
-          data: [32, 55, 45, 75, 55, 35, 70]
+          data: [32, 55, 45, 80, 55, 35, 70]
         }
       ],
       colors: [chartBgColor],
@@ -43,7 +43,7 @@
           colors: {
             ranges: [
               {
-                from: 75,
+                from: 100 ,
                 to: 80,
                 color: config.colors.primary
               },

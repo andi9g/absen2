@@ -17,16 +17,24 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
+
+        @php
+            $posisi = '';
+        @endphp
         @foreach ($menuData[0]->menu as $menu)
             {{-- adding active and open class if child is active --}}
 
             {{-- menu headers --}}
             @if (isset($menu->menuHeader))
-                <li class="menu-header fw-medium mt-4">
-                    <span class="menu-header-text">{{ __($menu->menuHeader) }}</span>
-                </li>
-            @else
-                {{-- active menu method --}}
+                @php
+                    $posisi = $menu->posisi ?? '';
+                @endphp
+                @if (Auth::user()->hakakses->posisi == $posisi)
+                    <li class="menu-header fw-medium mt-4">
+                        <span class="menu-header-text">{{ __($menu->menuHeader) }}</span>
+                    </li>
+                @endif
+            @elseif (Auth::user()->hakakses->posisi == $posisi)
                 @php
                     $activeClass = null;
                     $currentRouteName = Route::currentRouteName();

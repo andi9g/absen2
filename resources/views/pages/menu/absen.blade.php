@@ -212,7 +212,10 @@
 
                                         <td>
                                             @php
-                                                $jammasuk = strtotime(date('Y-m-d') . ' ' . $item->jammasuk);
+                                                $jammasuk = strtotime(
+                                                    '-15 minute',
+                                                    strtotime(date('Y-m-d') . ' ' . $item->jammasuk),
+                                                );
                                                 $jadwaljammasuk = strtotime(date('Y-m-d') . ' ' . $waktu->jammasuk);
                                                 // Hitung selisih waktu (dalam detik)
                                                 $selisihDetik = $jammasuk - $jadwaljammasuk;

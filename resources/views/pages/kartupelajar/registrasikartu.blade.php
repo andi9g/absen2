@@ -160,7 +160,7 @@
                                         <td>{{ $item->kelas->namakelas . ' ' . $item->jurusan->jurusan }}</td>
                                         <td width="5px">
                                             <center>
-                                                @if (empty($item->kartupelajar))
+                                                @if (empty($item->kartupelajar->nisn))
                                                     <label for=""
                                                         class="badge border border-danger text-danger bg-transparent">Tidak
                                                         Terdaftar</label>
