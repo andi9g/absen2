@@ -67,8 +67,8 @@
                         </div>
                         <div class="col-md-5">
                             <div class="input-group">
-                                <input class="form-control" type="text" value="{{ empty($keyword) ?? '' }}" name="keyword"
-                                    placeholder="masukan nama siswa" aria-label="masukan nama siswa"
+                                <input class="form-control" type="text" value="{{ empty($keyword) ?? '' }}"
+                                    name="keyword" placeholder="masukan nama siswa" aria-label="masukan nama siswa"
                                     aria-describedby="keyword">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-secondary" id="keyword">
@@ -93,7 +93,7 @@
                         <tbody>
                             @foreach ($instansi as $item)
                                 <tr>
-                                    <td align="center">{{ $loop->iteration + $instansi->firstItem() - 1 }}</td>
+                                    <td align="center">{{ $loop->iteration }}</td>
                                     <td>{{ $item->namainstansi }}</td>
                                     <td>{{ $item->npsn }}</td>
                                     <td>
