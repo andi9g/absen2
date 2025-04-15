@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\instansiM;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,10 @@ class emailC extends Controller
     if (!empty(Auth::user()->email)) {
       return redirect('home');
     }
-    return view("pages.email");
+    $instansi = instansiM::take(1)->get();
+    return view("pages.email", [
+      "instansi" => $instansi,
+    ]);
   }
 
   /**
