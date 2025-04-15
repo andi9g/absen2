@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="input-group">
-                                <input class="form-control" type="text" value="{{ $keyword }}" name="keyword"
+                                <input class="form-control" type="text" value="{{ empty($keyword) ?? '' }}" name="keyword"
                                     placeholder="masukan nama siswa" aria-label="masukan nama siswa"
                                     aria-describedby="keyword">
                                 <div class="input-group-append">
