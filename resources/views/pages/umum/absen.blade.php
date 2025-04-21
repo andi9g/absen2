@@ -181,9 +181,12 @@
                                                         <small class="badge bg-danger py-1 border-0">Terlambat
                                                             {{ $jam }}
                                                             jam {{ $menit }} menit</small>
-                                                    @else
+                                                    @elseif(!empty($item->jammasuk))
                                                         <small class="badge bg-success py-1 border-0">Tepat
                                                             Waktu</small>
+                                                    @else
+                                                        <small class="badge bg-warning py-1 border-0">Tidak absen
+                                                            masuk</small>
                                                     @endif
                                                 @endif
                                             </td>
