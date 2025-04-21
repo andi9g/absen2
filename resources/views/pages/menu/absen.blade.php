@@ -192,7 +192,7 @@
                                         </td>
                                         <td>{{ $item->jammasuk }}</td>
                                         <td>{{ $item->jamkeluar }}</td>
-                                        @if ($item->ket == 'H')
+                                        @if ($item->ket == 'H' && !empty($item->jammasuk))
                                             <td class="text-center" style="background: rgb(170, 255, 170)">
                                                 {{ $item->ket }}
                                             </td>
@@ -208,6 +208,7 @@
                                             <td class="text-center" style="background: rgba(255, 186, 186, 0.733)">
                                                 {{ $item->ket }}
                                             </td>
+                                        @else
                                         @endif
 
                                         <td>
@@ -230,8 +231,10 @@
                                                     <small class="badge bg-danger py-1 border-0">Terlambat
                                                         {{ $jam }}
                                                         jam {{ $menit }} menit</small>
-                                                @else
+                                                @elseif(!empty($item->jammasuk))
                                                     <small class="badge bg-success py-1 border-0">Tepat Waktu</small>
+                                                @else
+                                                    <small class="badge bg-warning py-1 border-0">Tidak absen masuk</small>
                                                 @endif
                                             @endif
                                         </td>
