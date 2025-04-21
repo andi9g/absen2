@@ -15,7 +15,6 @@ class absenM extends Model
 
   public function siswa()
   {
-    return $this->belongsTo(siswaM::class, 'nisn', 'nisn')
-      ->from("siswa.siswa");
+    return $this->belongsTo(siswaM::class, 'nisn', 'nisn');
   }
 }
