@@ -187,7 +187,7 @@
                                 @foreach ($absen as $item)
                                     <tr>
                                         <td>{{ $loop->iteration + $absen->firstItem() - 1 }}</td>
-                                        <td>{{ $item->siswa->detailsiswa->nama ?? '' }}</td>
+                                        <td>{{ $item->siswa->namasiswa ?? '' }}</td>
                                         <td>{{ $item->siswa->kelas->namakelas . ' ' . $item->siswa->jurusan->jurusan }}
                                         </td>
                                         <td>{{ $item->jammasuk }}</td>
