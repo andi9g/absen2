@@ -51,6 +51,7 @@ use App\Http\Controllers\jamoperasionalC;
 use App\Http\Controllers\jurusanC;
 use App\Http\Controllers\kartupelajarC;
 use App\Http\Controllers\kelasC;
+use App\Http\Controllers\laporanPDF;
 use App\Http\Controllers\perangkatC;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Middleware\getEmail;
@@ -128,6 +129,11 @@ Route::middleware(['auth', givedata::class])->group(function () {
     Route::get('/pages/account-settings-connections', [AccountSettingsConnections::class, 'index'])->name('pages-account-settings-connections');
     Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
     Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
+
+
+    //laporan
+    Route::get("laporan", [laporanPDF::class, "laporan"])->name("laporan");
+    Route::get("laporan/cetak", [laporanPDF::class, "cetak"])->name("cetak-laporan");
   });
 
   Route::middleware([hakSuperadmin::class])->group(function () {

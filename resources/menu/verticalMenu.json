@@ -37,6 +37,12 @@
       "slug": "absen"
     },
     {
+      "url": "laporan",
+      "name": "Laporan",
+      "icon": "menu-icon tf-icons mdi mdi-printer",
+      "slug": "laporan"
+    },
+    {
       "menuHeader": "REGISTRASI",
       "posisi": "admin"
     },
