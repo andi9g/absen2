@@ -192,7 +192,7 @@
                                         </td>
                                         <td>{{ $item->jammasuk }}</td>
                                         <td>{{ $item->jamkeluar }}</td>
-                                        @if ($item->ket == 'H' && !empty($item->jammasuk))
+                                        @if ($item->ket == 'H')
                                             <td class="text-center" style="background: rgb(170, 255, 170)">
                                                 {{ $item->ket }}
                                             </td>
